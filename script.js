@@ -30,11 +30,17 @@ function map(){
     c.lineTo(2500, ch-400)
     c.lineTo(3000, ch-400)
     c.lineTo(3000, ch)
-    c.moveTo(2000, ch-1025);
+    c.moveTo(1600, ch-1025);
     c.lineTo(2900, ch-1025)
     c.stroke()
 
 }
+    //Map walls Coordinates
+ const  floors = [ [150, 300, ch-600], [900, 1400, ch-100], [1900, 2500, ch-800], [1400, 1900, ch-500], [2500, 3000, ch-400] ]
+ const  roofs = [ [1600, 2900, ch-1025] ]
+ const rights = [ [ch-500, ch-100, 1400], [ch-100, ch, 900], [ch-800, ch-500, 1900], [ch-600, ch, 150] ]
+ const lefts = [ [ch-600, ch, 300], [ch-800, ch-400, 2500], [ch-400, ch, 3000] ]
+
 
  const gravity = 1.2
  const friction = 0.9 //kuchachisha
@@ -114,7 +120,7 @@ function map(){
                     if(i==j){
                         this.position.y -= 1
                         this.bwall = true;
-                        return
+                        return true
                     }
                 }
             }
@@ -138,7 +144,7 @@ function map(){
                     if(i==j){
                         this.position.y += 1
                         this.twall = true;
-                        return
+                        return true
                     }
                 }
             }
@@ -159,7 +165,7 @@ function map(){
                 for(let j = ys2; j <= ye2; j++){
                     if(i==j){
                         this.rwall = true;
-                        return
+                        return true
                     }
                 }
             }
@@ -181,7 +187,7 @@ function map(){
                 for(let j = ys2; j <= ye2; j++){
                     if(i==j){
                         this.lwall = true;
-                        return
+                        return true
                     }
                 }
             }
@@ -191,33 +197,29 @@ function map(){
         this.bwall = false //resets state
         //Check if player is below floor
         if(this.position.y + this.velocity.y + this.height >= ch){this.bwall = true;return}
-        this.isFloor(900, 1400, ch-100)
-        this.isFloor(1900, 2500, ch-800)
-        this.isFloor(1400, 1900, ch-500)
-        this.isFloor(2500, 3000, ch-400)
-        this.isFloor(150, 300, ch-600)
+        for(let fl of floors){if(this.isFloor(fl[0], fl[1], fl[2])){break}}
     }
     topwall(){
         this.twall = false //resets state
         //Check if player is below floor
         if(this.position.y <=0){this.twall = true;return}
-        this.isTop(2000, 2900, ch-1025)
+        for(let rf of roofs){if(this.isTop(rf[0], rf[1], rf[2])){break}}
+        
     }
     rightwall(){
         this.rwall = false //resets state
         if(this.position.x + this.width >= canvas.width ){this.position.x -= this.width*3;return}
-        this.isRight(ch-500, ch-100, 1400)
-        this.isRight(ch-100, ch, 900)
-        this.isRight(ch-800, ch-500, 1900)
-        this.isRight(ch-600, ch, 150)
+        for(let rw of rights){if(this.isRight(rw[0], rw[1], rw[2])){break}}
+        
 
     }
     leftwall(){
         this.lwall = false //resets state
         if(this.position.x <= 0 ){this.lwall = true;return}
-        this.isLeft(ch-600, ch, 300)
-        this.isLeft(ch-800, ch-400, 2500)
-        this.isLeft(ch-400, ch, 3000)
+        for(let lw of lefts){if(this.isLeft(lw[0], lw[1], lw[2])){break}}
+        // this.isLeft(ch-600, ch, 300)
+        // this.isLeft(ch-800, ch-400, 2500)
+        // this.isLeft(ch-400, ch, 3000)
 
     }
     update(pos){

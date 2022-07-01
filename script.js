@@ -16,30 +16,43 @@ function map(){
     c.strokeStyle = "white"
     c.lineWidth = 10
     c.beginPath();
-    c.moveTo(300, ch);
-    c.lineTo(300, ch-600)
-    c.lineTo(150, ch-600)
-    c.lineTo(150, ch)
-    c.moveTo(900, ch);
-    c.lineTo(900, ch-100)
-    c.lineTo(1400, ch-100)
-    c.lineTo(1400, ch-500)
-    c.lineTo(1900, ch-500)
-    c.lineTo(1900, ch-800)
-    c.lineTo(2500, ch-800)
-    c.lineTo(2500, ch-400)
-    c.lineTo(3000, ch-400)
-    c.lineTo(3000, ch)
-    c.moveTo(1600, ch-1025);
-    c.lineTo(2900, ch-1025)
+    c.moveTo(0, 1800);
+    c.lineTo(800, 1800)
+    c.lineTo(800, 1600)
+    c.lineTo(1000, 1600)
+    c.lineTo(1000, 1400)
+    c.lineTo(1200, 1400)
+    c.lineTo(1200, 1800)
+    c.lineTo(1800, 1800)
+    c.lineTo(1800, 1400)
+    c.lineTo(2000, 1400)
+    c.lineTo(2000, 2000)
+    c.lineTo(1600, 2000)
+    c.lineTo(1600, 2200)
+    c.lineTo(1400, 2200)
+    c.lineTo(1400, 2000)
+    c.lineTo(800, 2000)
+    c.lineTo(800, 2200)
+    c.lineTo(600, 2200)
+    c.lineTo(600, 2000)
+    c.lineTo(200, 2000)
+    c.lineTo(200, 2200)
+    c.lineTo(400, 2200)
+    c.lineTo(400, 2400)
+    c.lineTo(0, 2400)
+    c.moveTo(1400, 1400);
+    c.lineTo(1400, 1200)
+    c.lineTo(1600, 1200)
+    c.lineTo(1600, 1400)
+    c.lineTo(1400, 1400)
     c.stroke()
 
 }
     //Map walls Coordinates
- const  floors = [ [150, 300, ch-600], [900, 1400, ch-100], [1900, 2500, ch-800], [1400, 1900, ch-500], [2500, 3000, ch-400] ]
- const  roofs = [ [1600, 2900, ch-1025] ]
- const rights = [ [ch-500, ch-100, 1400], [ch-100, ch, 900], [ch-800, ch-500, 1900], [ch-600, ch, 150] ]
- const lefts = [ [ch-600, ch, 300], [ch-800, ch-400, 2500], [ch-400, ch, 3000] ]
+ const  floors = [ [200, 400, 2200], [1400, 1600, 1200], [1800, 2000, 1400], [1200, 1800, 1800], [1000, 1200, 1400], [800, 1000, 1600], [0, 800, 1800] ]
+ const  roofs = [ [0, 400, 2400], [1400, 1600, 1400], [0, 50, 2420], [200, 600, 2000], [600, 800, 2200], [800, 1400, 2000], [1400, 1600, 2200], [1600, 2000, 2000], [200, 250, 2020], [550, 600, 2020], [800, 850, 2020], [1350, 1400, 2020], [1600, 1650, 2020] ]
+ const rights = [ [2000, 2200, 600], [1200, 1400, 1400], [2000, 2200, 1400], [1400, 1800, 1800], [1400, 1600, 1000], [1600, 1800, 800] ]
+ const lefts = [ [2200, 2400, 400], [1200, 1400, 1600], [2000, 2200, 200], [2000, 2200, 800], [2000, 2200, 1600], [1400, 2000, 2000], [1400, 1800, 1200] ]
 
 
  const gravity = 1.2
@@ -153,7 +166,7 @@ function map(){
     isRight(ys2,ye2,x2){//Checks if y axis is similar and line is within x points
         this.rgt = {
             ys: this.position.y,
-            ye: this.position.y + this.height,
+            ye: this.position.y + this.height - 10,
             x: this.position.x + this.width
         }
         //Convert to Integers
@@ -174,7 +187,7 @@ function map(){
     isLeft(ys2,ye2,x2){//Checks if y axis is similar and line is within x points
         this.lft = {
             ys: this.position.y,
-            ye: this.position.y + this.height,
+            ye: this.position.y + this.height - 10,
             x: this.position.x
         }
         //Convert to Integers
@@ -217,9 +230,7 @@ function map(){
         this.lwall = false //resets state
         if(this.position.x <= 0 ){this.lwall = true;return}
         for(let lw of lefts){if(this.isLeft(lw[0], lw[1], lw[2])){break}}
-        // this.isLeft(ch-600, ch, 300)
-        // this.isLeft(ch-800, ch-400, 2500)
-        // this.isLeft(ch-400, ch, 3000)
+        
 
     }
     update(pos){
@@ -255,7 +266,7 @@ function map(){
  }
  //Create Our Player Object
  const player = new Sprite({ //Object Player created from class Sprite
-    position: {x:50, y:0},
+    position: {x:20, y:0},
     velocity: {x:0, y:0},
     color: 'red'
  })
